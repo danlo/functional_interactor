@@ -19,7 +19,7 @@ module Interactors
 
     def call(context = {})
       interactions.inject(context) do |context, interactor|
-        Kase.kase interactor.call(context) do
+        kase interactor.call(context) do
           on(:ok)    { |context| context }
           on(:error) { |reason| return [:error, reason] }
         end
