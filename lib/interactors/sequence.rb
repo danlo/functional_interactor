@@ -30,6 +30,7 @@ module Interactors
         on(:ok)    { |context| context }
         on(:error) { |reason| return [:error, reason] }
       end
+      [:ok, context]
     end
   end
 end
