@@ -12,6 +12,8 @@ module Interactors
       self
     end
 
+    alias_method :|, :compose
+
     def call
       interactions.each do |interactor|
         interactor.call!(context)

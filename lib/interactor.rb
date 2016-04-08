@@ -2,6 +2,7 @@ require "interactor/context"
 require "interactor/error"
 require "interactor/hooks"
 require "interactor/organizer"
+require 'interactor/sequence'
 
 # Public: Interactor methods. Because Interactor is a module, custom Interactor
 # classes should include Interactor rather than inherit from it.
@@ -25,7 +26,11 @@ module Interactor
       # Public: Gets the Interactor::Context of the Interactor instance.
       attr_reader :context
 
-      alias_method :compose, :|
+      alias_method :|, :compose
+
+      class << self
+        alias_method :|, :compose
+      end
     end
   end
 
@@ -77,6 +82,12 @@ module Interactor
     def call!(context = {})
       new(context).tap(&:run!).context
     end
+
+    # | aliases to compose, so you can do something like:
+    # (CreateOrder | ChargeCard.new(token: params[:token]) | SendThankYou).call
+    def compose(interactor)
+      Interactors::Sequence.new | self | interactor
+    end
   end
 
   # Internal: Initialize an Interactor.
@@ -99,12 +110,7 @@ module Interactor
   # | aliases to compose, so you can do something like:
   # (CreateOrder | ChargeCard.new(token: params[:token]) | SendThankYou).call
   def compose(interactor)
-    interactor = if interactor.is_a?(Interactor)
-                   interactor
-                 else
-                   interactor.new
-                 end
-    Interactors::Sequence.new.compose(interactor)
+    Interactors::Sequence.new | self | interactor
   end
 
   # Internal: Invoke an interactor instance along with all defined hooks. The
