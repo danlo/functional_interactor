@@ -24,6 +24,8 @@ module Interactor
 
       # Public: Gets the Interactor::Context of the Interactor instance.
       attr_reader :context
+
+      alias_method :compose, :|
     end
   end
 
@@ -92,6 +94,17 @@ module Interactor
   #   # => #<MyInteractor @context=#<Interactor::Context>>
   def initialize(context = {})
     @context = Context.build(context)
+  end
+
+  # | aliases to compose, so you can do something like:
+  # (CreateOrder | ChargeCard.new(token: params[:token]) | SendThankYou).call
+  def compose(interactor)
+    interactor = if interactor.is_a?(Interactor)
+                   interactor
+                 else
+                   interactor.new
+                 end
+    Interactors::Sequence.new.compose(interactor)
   end
 
   # Internal: Invoke an interactor instance along with all defined hooks. The
