@@ -13,7 +13,7 @@ module Interactor
   # | aliases to compose, so you can do something like:
   # (CreateOrder | ChargeCard.new(token: params[:token]) | SendThankYou).call
   def compose(interactor)
-    Interactors::Sequence.new | self | interactor
+    Interactors::Sequence.new.compose(self).compose(interactor)
   end
 
   alias_method :|, :compose
@@ -26,7 +26,7 @@ module Interactor
     # | aliases to compose, so you can do something like:
     # (CreateOrder | ChargeCard.new(token: params[:token]) | SendThankYou).call
     def compose(interactor)
-      Interactors::Sequence.new | self | interactor
+      Interactors::Sequence.new.compose(self).compose(interactor)
     end
 
     alias_method :|, :compose
