@@ -1,7 +1,10 @@
+require 'interactor'
+
 module Interactors
   # An Interactor that is a sequence of Interactors
   class Sequence
     include Interactor
+    include Kase
 
     def interactions
       @__interactions ||= []
@@ -14,10 +17,12 @@ module Interactors
 
     alias_method :|, :compose
 
-    def call
-      interactions.each do |interactor|
-        interactor.call!(context)
-        break if context.fail? # Stop the chain if any interaction fail
+    def call(context = {})
+      interactions.inject(context) do |context, interactor|
+        Kase.kase interactor.call(context) do
+          on(:ok)    { |context| context }
+          on(:error) { |reason| return [:error, reason] }
+        end
       end
     end
   end
