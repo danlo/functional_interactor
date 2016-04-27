@@ -2,7 +2,7 @@ require 'active_support/concern'
 require 'interactors'
 
 # Include this to support interactor interface
-module Interactor
+module FunctionalInteractor
   extend ActiveSupport::Concern
 
   included do

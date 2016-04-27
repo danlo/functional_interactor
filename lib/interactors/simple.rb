@@ -8,7 +8,7 @@ module Interactors
   #  - Only return [:error, ... ] if exception is raised
   #  - otherwise, always return [:ok, context]
   class Simple
-    include Interactor
+    include FunctionalInteractor
     attr_reader :block
 
     def initialize(&blk)

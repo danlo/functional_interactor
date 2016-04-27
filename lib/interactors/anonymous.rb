@@ -6,7 +6,7 @@ module Interactors
   #  - passes context to the proc
   #  - honors #compose interface
   class Anonymous
-    include Interactor
+    include FunctionalInteractor
     attr_reader :block
 
     def initialize(&blk)

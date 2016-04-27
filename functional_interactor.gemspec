@@ -1,13 +1,13 @@
 # encoding: utf-8
 
 Gem::Specification.new do |spec|
-  spec.name    = "interactor"
-  spec.version = "3.1.0"
+  spec.name    = "functional_interactor"
+  spec.version = "0.0.1"
 
-  spec.author      = "Collective Idea"
-  spec.email       = "info@collectiveidea.com"
-  spec.description = "Interactor provides a common interface for performing complex user interactions."
-  spec.summary     = "Simple interactor implementation"
+  spec.author      = "Ho-Sheng Hsiao"
+  spec.email       = "hosh@legal.io"
+  spec.description = "Functional Interactor using Kase protocol and composition operators"
+  spec.summary     = "Functional Interactor, composable, higher-order interactors. Complete rewrite of collectiveideas/interactor"
   spec.homepage    = "https://github.com/collectiveidea/interactor"
   spec.license     = "MIT"
 

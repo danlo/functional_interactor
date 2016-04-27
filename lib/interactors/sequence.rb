@@ -3,7 +3,7 @@ require 'interactor'
 module Interactors
   # An Interactor that is a sequence of Interactors
   class Sequence
-    include Interactor
+    include FunctionalInteractor
     include Kase
 
     def interactions
