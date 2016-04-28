@@ -10,7 +10,10 @@ Add Interactor to your Gemfile and `bundle install`.
 gem "functional_interactor", "~> 0.0.1"
 ```
 
-This implementation is meant to be used with the [Kase](https://github.com/lasseebert/kase) gem.
+This implementation is meant to be used with the [Kase](https://github.com/lasseebert/kase) gem. This
+is also an experiment -- some of the ideas such as generic interactors are somethign we (Legal.io engineering)
+is trying due to the sheer complexity of our code base. The examples we have in the advanced usage section
+can use a lot of improvement.
 
 ## What is an Interactor?
 
@@ -279,9 +282,9 @@ there is a long chain of interactions:
 
 ```ruby
 interactions = AuthenticatedUser \
-| FraudDetector
-| Interactors::Simple.new { NotificationsMailer.login(user: context[:user]).deliver }
-| ActivityLogger.new(:user_logs_in, controller: self)
+| FraudDetector \
+| Interactors::Simple.new { NotificationsMailer.login(user: context[:user]).deliver } \
+| ActivityLogger.new(:user_logs_in, controller: self) \
 | Interactors::RPC.new(service: :presence, module: :'Elixir.Presence.RPC', func: :register)
 
 Kase.kase interactions.call(session_params) do
