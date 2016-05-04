@@ -1,4 +1,4 @@
-require 'interactor'
+require 'functional_interactor'
 
 module Interactors
   autoload :Sequence,  'interactors/sequence'
