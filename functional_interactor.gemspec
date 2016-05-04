@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.email       = "hosh@legal.io"
   spec.description = "Functional Interactor using Kase protocol and composition operators"
   spec.summary     = "Functional Interactor, composable, higher-order interactors. Complete rewrite of collectiveideas/interactor"
-  spec.homepage    = "https://github.com/collectiveidea/interactor"
+  spec.homepage    = "https://github.com/hosh/functional_interactor"
   spec.license     = "MIT"
 
   spec.files      = `git ls-files`.split($/)
